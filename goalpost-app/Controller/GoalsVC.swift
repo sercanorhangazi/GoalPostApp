@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class GoalsVC: UIViewController {
 
     // Outlets
     @IBOutlet weak var tableView: UITableView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
