@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CDC923271FB3854D00F3D4CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC923261FB3854D00F3D4CD /* AppDelegate.swift */; };
-		CDC923291FB3854D00F3D4CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC923281FB3854D00F3D4CD /* ViewController.swift */; };
+		CDC923291FB3854D00F3D4CD /* GoalsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC923281FB3854D00F3D4CD /* GoalsVC.swift */; };
 		CDC9232C1FB3854D00F3D4CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDC9232A1FB3854D00F3D4CD /* Main.storyboard */; };
 		CDC9232F1FB3854D00F3D4CD /* goalpost_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDC9232D1FB3854D00F3D4CD /* goalpost_app.xcdatamodeld */; };
 		CDC923311FB3854D00F3D4CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDC923301FB3854D00F3D4CD /* Assets.xcassets */; };
@@ -18,7 +18,7 @@
 /* Begin PBXFileReference section */
 		CDC923231FB3854D00F3D4CD /* goalpost-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "goalpost-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDC923261FB3854D00F3D4CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CDC923281FB3854D00F3D4CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CDC923281FB3854D00F3D4CD /* GoalsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsVC.swift; sourceTree = "<group>"; };
 		CDC9232B1FB3854D00F3D4CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CDC9232E1FB3854D00F3D4CD /* goalpost_app.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = goalpost_app.xcdatamodel; sourceTree = "<group>"; };
 		CDC923301FB3854D00F3D4CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,8 +56,11 @@
 		CDC923251FB3854D00F3D4CD /* goalpost-app */ = {
 			isa = PBXGroup;
 			children = (
+				CDC9233F1FB385D600F3D4CD /* Extensions */,
+				CDC9233E1FB385BC00F3D4CD /* Enums */,
+				CDC9233D1FB3859C00F3D4CD /* View */,
+				CDC9233B1FB3857600F3D4CD /* Controller */,
 				CDC923261FB3854D00F3D4CD /* AppDelegate.swift */,
-				CDC923281FB3854D00F3D4CD /* ViewController.swift */,
 				CDC9232A1FB3854D00F3D4CD /* Main.storyboard */,
 				CDC923301FB3854D00F3D4CD /* Assets.xcassets */,
 				CDC923321FB3854D00F3D4CD /* LaunchScreen.storyboard */,
@@ -65,6 +68,35 @@
 				CDC9232D1FB3854D00F3D4CD /* goalpost_app.xcdatamodeld */,
 			);
 			path = "goalpost-app";
+			sourceTree = "<group>";
+		};
+		CDC9233B1FB3857600F3D4CD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CDC923281FB3854D00F3D4CD /* GoalsVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CDC9233D1FB3859C00F3D4CD /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CDC9233E1FB385BC00F3D4CD /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		CDC9233F1FB385D600F3D4CD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +171,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDC923291FB3854D00F3D4CD /* ViewController.swift in Sources */,
+				CDC923291FB3854D00F3D4CD /* GoalsVC.swift in Sources */,
 				CDC923271FB3854D00F3D4CD /* AppDelegate.swift in Sources */,
 				CDC9232F1FB3854D00F3D4CD /* goalpost_app.xcdatamodeld in Sources */,
 			);
