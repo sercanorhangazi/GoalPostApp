@@ -366,6 +366,9 @@
                                             <constraint firstAttribute="height" constant="25" id="sPc-QT-upr"/>
                                         </constraints>
                                         <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="DRs-0d-EuI" eventType="touchUpInside" id="Gdq-p0-Oqt"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.83295355900000001" blue="0.3143794338" alpha="1" colorSpace="calibratedRGB"/>
