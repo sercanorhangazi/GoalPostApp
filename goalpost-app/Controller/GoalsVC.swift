@@ -27,6 +27,11 @@ class GoalsVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        fetchCoreDataObjects()
+        tableView.reloadData()
+    }
+    
+    func fetchCoreDataObjects() {
         self.fetch { (success) in
             if success {
                 if goals.count > 0 {
@@ -34,7 +39,6 @@ class GoalsVC: UIViewController {
                 } else {
                     tableView.isHidden = true
                 }
-                tableView.reloadData()
             }
         }
     }
@@ -61,10 +65,27 @@ extension GoalsVC: UITableViewDelegate, UITableViewDataSource {
         cell.configureCell(goal: goal)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "DELETE") { (rowAction, indexPath) in
+            self.removeGoal(atIndexPath: indexPath)
+            self.fetchCoreDataObjects()
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+        }
+        deleteAction.backgroundColor  = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+        return [deleteAction]
+    }
 }
 
 extension GoalsVC {
-    
     func fetch(completion : (_ complete : Bool) -> ()) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
@@ -75,6 +96,17 @@ extension GoalsVC {
         } catch {
             debugPrint("Fetch error : \(error.localizedDescription)")
             completion(false)
+        }
+    }
+    
+    func removeGoal(atIndexPath indexPath : IndexPath) {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        managedContext.delete(goals[indexPath.row])
+        do {
+            try managedContext.save()
+            print("Deleting completed.")
+        } catch {
+            debugPrint("Deleting error : \(error.localizedDescription)")
         }
     }
     
