@@ -13,9 +13,11 @@ class GoalsVC: UIViewController {
 
     // Outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var undoView: UIView!
     
     // Varibles
     var goals = [Goal]()
+    var isUndoVisible = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,7 @@ class GoalsVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isHidden = false
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,6 +49,14 @@ class GoalsVC: UIViewController {
     @IBAction func addGoalButtonPressed(_ sender: Any) {
         guard let addNewGoalVC = storyboard?.instantiateViewController(withIdentifier: "AddNewGoalVC") else { return }
         presentDetail(addNewGoalVC)
+    }
+    
+    @IBAction func undoButtonPressed(_ sender: Any) {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        managedContext.undoManager?.undo()
+        fetchCoreDataObjects()
+        tableView.reloadData()
+        hideUndoBar()
     }
     
 }
@@ -102,7 +113,6 @@ extension GoalsVC {
         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
         do {
             goals = try managedContext.fetch(fetchRequest)
-            print("Fetching completed.")
             completion(true)
         } catch {
             debugPrint("Fetch error : \(error.localizedDescription)")
@@ -112,10 +122,11 @@ extension GoalsVC {
     
     func removeGoal(atIndexPath indexPath : IndexPath) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        managedContext.undoManager = UndoManager()
         managedContext.delete(goals[indexPath.row])
         do {
             try managedContext.save()
-            print("Deleting completed.")
+            self.showUndoBar()
         } catch {
             debugPrint("Deleting error : \(error.localizedDescription)")
         }
@@ -132,13 +143,29 @@ extension GoalsVC {
         
         do {
             try managedContext.save()
-            print("Progress set.")
         } catch {
             debugPrint("Couldn't set progress. \(error.localizedDescription)")
         }
     }
-    
-    
+}
+
+extension GoalsVC {
+    func showUndoBar() {
+        if isUndoVisible == false {
+            let v = self.undoView.frame
+            UIView.animate(withDuration: 0.3) {
+                self.undoView.frame = CGRect(x: v.origin.x, y: v.origin.y - 50, width: v.width, height: v.height)
+            }
+        }
+        isUndoVisible = true
+    }
+    func hideUndoBar() {
+        let v = self.undoView.frame
+        UIView.animate(withDuration: 0.3) {
+            self.undoView.frame = CGRect(x: v.origin.x, y: v.origin.y + 50, width: v.width, height: v.height)
+        }
+        isUndoVisible = false
+    }
 }
 
 
