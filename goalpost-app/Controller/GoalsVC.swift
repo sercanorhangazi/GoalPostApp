@@ -108,6 +108,11 @@ extension GoalsVC: UITableViewDelegate, UITableViewDataSource {
             return [deleteAction, addAction]
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let goal = goals[indexPath.row]
+        print("Index : \(goal.index) | \(goal.goalDescription!) | \(goal.goalType!) | \(goal.goalProgressValue)/\(goal.goalCompletionValue)")
+    }
 }
 
 extension GoalsVC {

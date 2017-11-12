@@ -17,13 +17,20 @@ class GoalCell: UITableViewCell {
     @IBOutlet weak var goalCompleteView: UIView!
     
     // Variables
-    var goalIndex : Int32 = 0
+    var goalIndex : Int32?
     
     func configureCell(goal : Goal) {
         self.goalDescriptionLabel.text = goal.goalDescription
         self.goalTermLabel.text = goal.goalType
         self.goalProgressLabel.text = "\(goal.goalProgressValue)"
         self.goalIndex = goal.index
+        
+        if lastIndex == nil {
+            lastIndex = 0
+        } else {
+            lastIndex = goalIndex
+        }
+       
         
         
         if goal.goalProgressValue == goal.goalCompletionValue {
