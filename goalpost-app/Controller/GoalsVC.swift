@@ -30,6 +30,7 @@ class GoalsVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        isUndoVisible = false
         fetchCoreDataObjects()
         tableView.reloadData()
     }
@@ -155,9 +156,10 @@ extension GoalsVC {
             let v = self.undoView.frame
             UIView.animate(withDuration: 0.3) {
                 self.undoView.frame = CGRect(x: v.origin.x, y: v.origin.y - 50, width: v.width, height: v.height)
+                
+                self.isUndoVisible = true
             }
         }
-        isUndoVisible = true
     }
     func hideUndoBar() {
         let v = self.undoView.frame
