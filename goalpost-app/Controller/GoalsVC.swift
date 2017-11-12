@@ -23,7 +23,7 @@ class GoalsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        deleteAll()
+        // deleteAll()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isHidden = false
@@ -158,6 +158,7 @@ extension GoalsVC {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Goal")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        lastIndex = nil
         do
         {
             try managedContext.execute(deleteRequest)
