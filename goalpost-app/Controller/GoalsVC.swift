@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+var deletedGoalIndex : Int32?
+
 class GoalsVC: UIViewController {
 
     // Outlets
@@ -21,7 +23,7 @@ class GoalsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        deleteAll()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isHidden = false
@@ -114,6 +116,7 @@ extension GoalsVC {
         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
         do {
             goals = try managedContext.fetch(fetchRequest)
+            goals = goals.sorted { $0.index < $1.index }
             completion(true)
         } catch {
             debugPrint("Fetch error : \(error.localizedDescription)")
@@ -123,6 +126,7 @@ extension GoalsVC {
     
     func removeGoal(atIndexPath indexPath : IndexPath) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        deletedGoalIndex = Int32(indexPath.row)
         managedContext.undoManager = UndoManager()
         managedContext.delete(goals[indexPath.row])
         do {
@@ -146,6 +150,22 @@ extension GoalsVC {
             try managedContext.save()
         } catch {
             debugPrint("Couldn't set progress. \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteAll()
+    {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Goal")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do
+        {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+        }
+        catch
+        {
+            debugPrint ("Couldn't Deleted : \(error.localizedDescription)")
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 let appDelegate = UIApplication.shared.delegate as? AppDelegate
+var lastIndex : Int32?
 
 class FinishGoalVC: UIViewController, UITextFieldDelegate {
 
@@ -54,6 +55,12 @@ class FinishGoalVC: UIViewController, UITextFieldDelegate {
         goal.goalType = goalType.rawValue
         goal.goalCompletionValue = Int32(pointsTextField.text!)!
         goal.goalProgressValue = Int32(0)
+        if lastIndex == nil {
+            lastIndex = 0
+        } else {
+            lastIndex = lastIndex! + 1
+        }
+        goal.index = lastIndex!
         
         do {
             try managedContext.save()
